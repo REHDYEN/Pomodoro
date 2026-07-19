@@ -79,10 +79,13 @@ body::before {
 .glitch {
     font-size: 2rem;
     font-weight: 900;
-    color: var(--text-color);
+    color: #ffffff; /* Brighter white for crispness */
     position: relative;
-    text-shadow: 2px 2px var(--primary-neon), -2px -2px var(--secondary-neon);
+    /* Reduced vertical offset for a sharper glitch effect */
+    text-shadow: 2px 0px var(--primary-neon), -2px 0px var(--secondary-neon);
     letter-spacing: 2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .mode-selector {
