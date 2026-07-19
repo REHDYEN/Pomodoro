@@ -52,6 +52,7 @@ body::before {
     max-width: 90vw;
     text-align: center;
     backdrop-filter: blur(5px);
+    margin: 20px;
 }
 
 /* Corner accents */
@@ -227,4 +228,43 @@ body::before {
     z-index: 100;
     pointer-events: none;
     opacity: 0.3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .container {
+        padding: 20px;
+        width: 100%;
+        max-width: 95vw;
+    }
+
+    .glitch {
+        font-size: 1.5rem;
+    }
+
+    .time-text {
+        font-size: 4rem;
+        letter-spacing: 2px;
+    }
+
+    .mode-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn-control {
+        flex: 1 1 calc(50% - 10px);
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+
+    /* Make Reset button take full width if wrapped to bottom */
+    #btn-reset {
+        flex: 1 1 100%;
+    }
 }
