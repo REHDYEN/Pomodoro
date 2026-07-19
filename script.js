@@ -11,12 +11,27 @@ const workBtn = document.getElementById('btn-work');
 const breakBtn = document.getElementById('btn-break');
 const statusText = document.getElementById('status-text');
 const tomatoContainer = document.getElementById('tomato-container');
+const tomatoFillLayer = document.getElementById('tomato-fill-layer');
 let completedCycles = 0;
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    // Update SVG tomato clipping
+    const totalTime = isWorkMode ? 25 * 60 : 5 * 60;
+    const progress = 1 - (timeLeft / totalTime);
+
+    if (isWorkMode) {
+        // Work mode: Tomato empties from top to bottom (clip top edge downwards)
+        const clipPercent = progress * 100;
+        tomatoFillLayer.style.clipPath = `inset(${clipPercent}% 0 0 0)`;
+    } else {
+        // Break mode: Tomato fills from bottom to top (clip top edge upwards)
+        const clipPercent = (1 - progress) * 100;
+        tomatoFillLayer.style.clipPath = `inset(${clipPercent}% 0 0 0)`;
+    }
 }
 
 function updateStatus(status) {
@@ -132,13 +147,15 @@ function setMode(work) {
         breakBtn.classList.remove('active');
         timeLeft = 25 * 60;
         timeDisplay.style.color = 'var(--accent-neon)';
-        timeDisplay.style.textShadow = '0 0 10px var(--accent-neon), 0 0 20px rgba(252, 238, 10, 0.5), 0 0 40px rgba(252, 238, 10, 0.2)';
+        timeDisplay.style.textShadow = '0 0 5px var(--accent-neon), 0 0 10px rgba(252, 238, 10, 0.8), 0 0 20px rgba(252, 238, 10, 0.5)';
+        document.querySelectorAll('.tomato-svg').forEach(svg => svg.style.color = 'var(--accent-neon)');
     } else {
         breakBtn.classList.add('active');
         workBtn.classList.remove('active');
         timeLeft = 5 * 60;
         timeDisplay.style.color = 'var(--secondary-neon)';
-        timeDisplay.style.textShadow = '0 0 10px var(--secondary-neon), 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.2)';
+        timeDisplay.style.textShadow = '0 0 5px var(--secondary-neon), 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5)';
+        document.querySelectorAll('.tomato-svg').forEach(svg => svg.style.color = 'var(--secondary-neon)');
     }
 
     clearInterval(timer);

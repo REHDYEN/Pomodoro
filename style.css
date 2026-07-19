@@ -132,8 +132,42 @@ body::before {
 }
 
 .timer-display {
-    margin: 40px 0;
+    margin: 30px 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tomato-progress-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tomato-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Default color matching Work mode (accent-neon) */
+    color: var(--accent-neon);
+}
+
+/* Base silhouette layer */
+.tomato-silhouette {
+    z-index: 1;
+}
+
+/* Fill layer with dynamic clipping */
+.tomato-fill {
+    z-index: 2;
+    clip-path: inset(0% 0 0 0); /* fully visible initially */
+    transition: clip-path 1s linear, color 0.5s ease;
 }
 
 .time-text {
@@ -145,11 +179,21 @@ body::before {
         0 0 20px rgba(252, 238, 10, 0.5),
         0 0 40px rgba(252, 238, 10, 0.2);
     letter-spacing: 5px;
+    font-variant-numeric: tabular-nums;
+    z-index: 3;
 }
 
-/* Digital clock segment feel */
-.time-text {
-    font-variant-numeric: tabular-nums;
+.small-timer {
+    font-size: 2.5rem;
+    text-shadow:
+        0 0 5px var(--accent-neon),
+        0 0 10px rgba(252, 238, 10, 0.8),
+        0 0 20px rgba(252, 238, 10, 0.5);
+    background: rgba(11, 12, 16, 0.7);
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid currentColor;
+    backdrop-filter: blur(2px);
 }
 
 .controls {
