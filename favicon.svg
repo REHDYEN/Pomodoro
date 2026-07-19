@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Glowing effects -->
+  <defs>
+    <filter id="neon-red" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="neon-cyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Tomato body (angular) -->
+  <polygon points="50,25 85,35 90,70 65,95 35,95 10,70 15,35"
+           fill="#110000" stroke="#ff003c" stroke-width="5" filter="url(#neon-red)"/>
+
+  <!-- Cyber-lines inside -->
+  <polyline points="20,50 50,75 80,50" fill="none" stroke="#ff003c" stroke-width="2" opacity="0.6"/>
+  <line x1="50" y1="75" x2="50" y2="95" stroke="#ff003c" stroke-width="2" opacity="0.6"/>
+
+  <!-- Stem / Leaves (angular cyan) -->
+  <polyline points="30,30 50,15 70,30 50,35" fill="#001111" stroke="#00f0ff" stroke-width="4" filter="url(#neon-cyan)"/>
+  <line x1="50" y1="15" x2="50" y2="5" stroke="#00f0ff" stroke-width="4" filter="url(#neon-cyan)"/>
+</svg>

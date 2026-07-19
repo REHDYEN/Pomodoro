@@ -10,6 +10,8 @@ const resetBtn = document.getElementById('btn-reset');
 const workBtn = document.getElementById('btn-work');
 const breakBtn = document.getElementById('btn-break');
 const statusText = document.getElementById('status-text');
+const tomatoContainer = document.getElementById('tomato-container');
+let completedCycles = 0;
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
@@ -49,6 +51,7 @@ function startTimer() {
 
                 // Switch modes automatically
                 if (isWorkMode) {
+                    addTomato();
                     setMode(false);
                     updateStatus('BREAK_TIME! CLICK START');
                 } else {
@@ -68,10 +71,19 @@ function pauseTimer() {
     }
 }
 
+function addTomato() {
+    completedCycles++;
+    const tomato = document.createElement('div');
+    tomato.classList.add('cyber-tomato');
+    tomatoContainer.appendChild(tomato);
+}
+
 function resetTimer() {
     clearInterval(timer);
     isRunning = false;
     timeLeft = isWorkMode ? 25 * 60 : 5 * 60;
+    completedCycles = 0;
+    tomatoContainer.innerHTML = '';
     updateDisplay();
     updateStatus('IDLE');
 }
