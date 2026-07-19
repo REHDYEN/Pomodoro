@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Pomodoro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glitch-overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1 class="glitch" data-text="CYBER_POMODORO">CYBER_POMODORO</h1>
+        </div>
+
+        <div class="mode-selector">
+            <button id="btn-work" class="btn-mode active">WORK_MODE</button>
+            <button id="btn-break" class="btn-mode">BREAK_MODE</button>
+        </div>
+
+        <div class="timer-display">
+            <div id="time" class="time-text neon-text">25:00</div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-start" class="btn-control neon-button">START</button>
+            <button id="btn-pause" class="btn-control neon-button">PAUSE</button>
+            <button id="btn-reset" class="btn-control neon-button">RESET</button>
+        </div>
+
+        <div class="status-bar">
+            <span id="status-text">STATUS: IDLE</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

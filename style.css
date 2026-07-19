@@ -1,0 +1,230 @@
+:root {
+    --bg-color: #0b0c10;
+    --primary-neon: #ff003c; /* Cyberpunk Pink/Red */
+    --secondary-neon: #00f0ff; /* Cyberpunk Cyan */
+    --accent-neon: #fcee0a; /* Cyberpunk Yellow */
+    --text-color: #e0e0e0;
+    --font-main: 'Orbitron', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(255, 0, 60, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
+}
+
+/* Background grid effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    background: rgba(11, 12, 16, 0.8);
+    border: 1px solid var(--secondary-neon);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
+    position: relative;
+    width: 450px;
+    max-width: 90vw;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Corner accents */
+.container::before, .container::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-neon);
+}
+.container::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+}
+.container::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.glitch {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--text-color);
+    position: relative;
+    text-shadow: 2px 2px var(--primary-neon), -2px -2px var(--secondary-neon);
+    letter-spacing: 2px;
+}
+
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-mode {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid #333;
+    padding: 10px 20px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-mode:hover {
+    border-color: var(--secondary-neon);
+    color: var(--secondary-neon);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.btn-mode.active {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--secondary-neon);
+    color: var(--secondary-neon);
+    text-shadow: 0 0 5px var(--secondary-neon);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.timer-display {
+    margin: 40px 0;
+    position: relative;
+}
+
+.time-text {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--accent-neon);
+    text-shadow:
+        0 0 10px var(--accent-neon),
+        0 0 20px rgba(252, 238, 10, 0.5),
+        0 0 40px rgba(252, 238, 10, 0.2);
+    letter-spacing: 5px;
+}
+
+/* Digital clock segment feel */
+.time-text {
+    font-variant-numeric: tabular-nums;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-control {
+    background: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--primary-neon);
+    padding: 12px 25px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    position: relative;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-control::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--primary-neon);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.btn-control:hover {
+    color: #000;
+    box-shadow: 0 0 20px var(--primary-neon);
+}
+
+.btn-control:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+#btn-start { border-color: var(--secondary-neon); }
+#btn-start::before { background: var(--secondary-neon); }
+#btn-start:hover { box-shadow: 0 0 20px var(--secondary-neon); }
+
+#btn-reset { border-color: var(--accent-neon); }
+#btn-reset::before { background: var(--accent-neon); }
+#btn-reset:hover { box-shadow: 0 0 20px var(--accent-neon); }
+
+.status-bar {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--secondary-neon);
+    border-top: 1px dashed #333;
+    padding-top: 15px;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.status-bar::before {
+    content: '>';
+    margin-right: 10px;
+    animation: blink 1s infinite step-end;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Scanline effect */
+.glitch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.3;
+}
