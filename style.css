@@ -74,6 +74,10 @@ body::before {
 
 .header {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .glitch {
@@ -86,6 +90,9 @@ body::before {
     letter-spacing: 2px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    margin: 0;
+    display: inline-block;
 }
 
 .mode-selector {

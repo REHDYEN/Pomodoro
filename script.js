@@ -35,19 +35,8 @@ function startTimer() {
                 clearInterval(timer);
                 isRunning = false;
 
-                // Play a simple beep sound
-                try {
-                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator();
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(440, ctx.currentTime); // A4
-                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1); // A5
-                    osc.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.5);
-                } catch(e) {
-                    console.log("Audio not supported or permitted");
-                }
+                // Play Cyberpunk synthesized sounds based on the new mode
+                playCyberSound(!isWorkMode);
 
                 // Switch modes automatically
                 if (isWorkMode) {
@@ -60,6 +49,53 @@ function startTimer() {
                 }
             }
         }, 1000);
+    }
+}
+
+let audioCtx = null;
+
+function playCyberSound(isWork) {
+    try {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (isWork) {
+            // Aggressive, rising sawtooth for Work Mode (Alert!)
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.3);
+
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        } else {
+            // Futuristic, relaxing sine chime for Break Mode
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High pitch A5
+            osc.frequency.setValueAtTime(1108.73, audioCtx.currentTime + 0.2); // C#6
+
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.5);
+        }
+    } catch(e) {
+        console.log("Audio not supported or permitted");
     }
 }
 
